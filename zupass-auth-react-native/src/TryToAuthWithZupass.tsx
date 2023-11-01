@@ -12,16 +12,10 @@ const ZuzaluParticipants = 'https://api.pcd-passport.com/semaphore/1'
 export function TryToAuthWithZupass() {
   const [request, result, promptAsync] = useZupassAuthRequest(
     {
-      clientId: 'native.code',
+      clientId: 'NOT USED',
       redirectUri,
-      // usePKCE: false,
-      // clientSecret: 'secret',
-      // codeChallenge: 'code-challenge',
-      // prompt: 'login' as any,
-      // extraParams: {
-      //   isOriginalRequestParams: 'true',
-      // },
-      // responseType: 'code',
+      // TODO: figure out how to use PKCE
+      usePKCE: false,
     },
     {
       authorizationEndpoint: 'NOT USED',
