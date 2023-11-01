@@ -1,12 +1,11 @@
 import { redirect } from "next/navigation"
 
 export default async function Page({ searchParams: { final_redirect_uri, proof, finished } }) {
-  // TODO: verify proof, then redirect to final_redirect_uri
+  // TODO: more error handling and edge cases
 
   const isVerified = finished === "true" && proof && (await verifyProof(proof))
 
   if (isVerified && final_redirect_uri) {
-    // redirect immediately
     redirect(final_redirect_uri)
   }
 
