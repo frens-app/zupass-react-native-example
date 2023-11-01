@@ -1,7 +1,11 @@
 import { redirect } from "next/navigation"
 import { verifyProof } from "./verifyProof"
 
-export default async function Page({ searchParams: { final_redirect_uri, proof, finished } }) {
+export default async function Page({
+  searchParams: { final_redirect_uri, proof, finished },
+}: {
+  searchParams: Record<string, string>
+}) {
   // TODO: more error handling and edge cases
 
   const isVerified = finished === "true" && proof && (await verifyProof(proof))
