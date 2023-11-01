@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation"
+import { verifyProof } from "./verifyProof"
 
 export default async function Page({ searchParams: { final_redirect_uri, proof, finished } }) {
   // TODO: more error handling and edge cases
@@ -12,11 +13,4 @@ export default async function Page({ searchParams: { final_redirect_uri, proof, 
   }
 
   return <div>ERROR</div>
-}
-
-async function verifyProof(proof: string) {
-  "use server"
-  // TODO: actually verify the proof
-  await new Promise(resolve => setTimeout(resolve, 1000))
-  return true
 }
