@@ -7,7 +7,7 @@ export type SerializedPCD = { type: string; pcd: string }
 import { verifyGroupSignal, verifyGroupSignalType } from "./verifyGroupSignal"
 
 export async function verifyProof(proof: string) {
-  console.debug("verifyProof", proof)
+  console.debug("verifyProof")
   const pcd = JSON.parse(proof) as SerializedPCD
   if (!isSupportedProofType(pcd.type)) throw new Error(`Unsupported proof type: ${pcd.type}`)
   const verifier = pcdTypes[pcd.type]

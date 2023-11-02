@@ -29,6 +29,11 @@ export function TryToAuthWithZupass() {
     )}`,
   })
 
+  let verification = null
+  if (result?.type === 'success' && 'verification' in result.params)
+    verification = JSON.parse(result.params.verification)
+  const { verified, pcd, error } = verification || {}
+
   return (
     <SafeAreaView>
       <>
@@ -37,11 +42,16 @@ export function TryToAuthWithZupass() {
         </Pressable>
 
         <ScrollView className="w-screen">
-          {/* <Text>Redirect URI: {redirectUri}</Text> */}
-          {/* <Text>Zupass URL: {zupassUrl}</Text> */}
           <Text>Request:</Text>
           {request && <Text>{JSON.stringify(request, null, 2)}</Text>}
           <Text>Result:</Text>
+          {verification && (
+            <>
+              <Text>verified? {JSON.stringify(verified)}</Text>
+              {error && <Text>error: {error}</Text>}
+              <Text>pcd: {JSON.stringify(pcd)}</Text>
+            </>
+          )}
           {result && <Text>{JSON.stringify(result, null, 2)}</Text>}
         </ScrollView>
       </>

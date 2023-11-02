@@ -9,6 +9,7 @@ import JSONBig from "json-bigint"
   There are types at '/Users/tom/Projects/zupass-react-native-example/zupass-verify-server/node_modules/@semaphore-protocol/group/dist/types/index.d.ts', but this result could not be resolved when respecting package.json "exports". The '@semaphore-protocol/group' library may need to update its package.json or typings. */
 // @ts-expect-error
 import { Group } from "@semaphore-protocol/group"
+// See node_modules/@semaphore-protocol/group/src/group.ts
 
 export const verifyGroupSignalType = "semaphore-group-signal"
 
@@ -31,7 +32,13 @@ export async function verifyGroupSignal(rawPCD: SerializedPCD) {
   const knownGroupSemaphore = new Group(1, 16, knownGroup.members)
   const merkleRootMatches = BigInt(pcd.claim.merkleRoot) === BigInt(knownGroupSemaphore.root)
   if (!merkleRootMatches) {
-    throw new Error("Merkle root of this proof does not match Zuzalu's group")
+    console.debug({
+      pcdMerkleRoot: BigInt(pcd.claim.merkleRoot),
+      knownGroupMerkleRoot: BigInt(knownGroupSemaphore.root),
+    })
+    // throw new Error("Merkle root of this proof does not match Zuzalu's group")
+    console.warn("Merkle root of this proof does not match Zuzalu's group")
+    return { verified: false, pcd: rawPCD, error: "Merkle root of this proof does not match Zuzalu's group" }
   }
   return { verified: true, pcd: rawPCD }
 }
@@ -44,5 +51,6 @@ async function fetchSemaphoreGroup(groupName: keyof typeof semaphoreGroupUrls) {
     // TODO: user friendly error messages?
     throw new Error(`Failed to get group named ${groupName} at ${semaphoreGroupUrl}: ${res.status}`)
   }
-  return await res.json()
+  const raw = await res.text()
+  return await JSONBig().parse(raw)
 }
