@@ -7,7 +7,14 @@ import { useAuthRequestResult, useLoadedAuthRequest } from 'expo-auth-session/bu
 WebBrowser.maybeCompleteAuthSession()
 
 const redirectUri = AuthSession.makeRedirectUri({ scheme: 'zupass-auth-demo' })
-const ZuzaluParticipants = 'https://api.pcd-passport.com/semaphore/1'
+const semaphoreGroupUrls = {
+  ZuzaluParticipants: 'https://api.pcd-passport.com/semaphore/1',
+  ZuzaluResidents: 'https://api.pcd-passport.com/semaphore/2',
+  ZuzaluVisitors: 'https://api.pcd-passport.com/semaphore/3',
+  ZuzaluOrganizers: 'https://api.pcd-passport.com/semaphore/4',
+
+  // TODO: add support for Devconnect and other groups
+}
 
 export function TryToAuthWithZupass() {
   const [request, result, promptAsync] = useZupassAuthRequest(
@@ -23,7 +30,7 @@ export function TryToAuthWithZupass() {
   )
   const zupassUrl = genZupassUrl({
     title: 'Zupass Auth Demo',
-    remoteUrl: ZuzaluParticipants,
+    remoteUrl: semaphoreGroupUrls.ZuzaluVisitors,
     returnUrl: `http://localhost:3000/zupass-verify?final_redirect_uri=${encodeURIComponent(
       `${redirectUri}?state=${request?.state}`
     )}`,
