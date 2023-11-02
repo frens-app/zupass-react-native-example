@@ -1,5 +1,5 @@
 # zupass-react-native-example
-Example showing how to integrate with Zupass.org via React Native
+Example showing how to integrate with Zupass.org via React Native.
 
 |iOS|Android|Web|
 |---|---|---|
@@ -15,3 +15,14 @@ Example showing how to integrate with Zupass.org via React Native
 4. `npm run ios` or `npm run android` or `npm run web`
 
 NOTE: for Android, localhost won't work, so use something like ngrok to expose your local server to the internet. Then change the VERIFY_SERVICE_URL to point to your ngrok url.
+
+## How to expand support for other Zupass features
+
+Current example supports verifying Zuzalu Participants group membership for ZuConnect 2023.
+
+To add support for other Zupass features, see `semaphoreGroupUrls` in [client useZupassGroupMembershipVerification.ts](./zupass-auth-react-native/src/useZupassGroupMembershipVerification.ts).
+You may also need to modify `fetchSemaphoreGroup` in [server verifyGroupSignal.ts](./zupass-verify-server/app/zupass-verify/verifyGroupSignal.ts) to support the new feature.
+
+---
+
+This demo brought to you by your frens at https://frens.lol
