@@ -1,6 +1,9 @@
 import * as React from 'react'
 import { Pressable, PressableProps, SafeAreaView, ScrollView, Text, View } from 'react-native'
-import { maybeCompleteZupassAuthSession, useZupassGroupMembershipVerification } from './useFancyStuff'
+import {
+  maybeCompleteZupassAuthSession,
+  useZupassGroupMembershipVerification,
+} from './useZupassGroupMembershipVerification'
 
 maybeCompleteZupassAuthSession()
 
